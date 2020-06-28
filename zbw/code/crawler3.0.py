@@ -16,6 +16,7 @@ class crawler:
     def error(self):#错误处理，输出错误信息，并将浏览器关闭
         self.brower.quit()
         print('error!!!!!')
+<<<<<<< HEAD
     def log_in(self):#登录微博账号，这里需要用户扫描二维码，并且根据提示确认扫描成功
         try:
             time.sleep(1)
@@ -91,6 +92,14 @@ class crawler:
 
 
 
+=======
+    def log_in(self):
+        try:
+            time.sleep(1)
+            self.clic = brower.find_element_by_xpath('//a[@href="javascript:void(0)"]')
+            time.sleep(1)
+            clic.click()
+>>>>>>> 5deebe957d91fb4f82243c8ba36399d6f3cf7d74
 
 
 for i in range(20):
