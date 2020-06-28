@@ -17,6 +17,12 @@ class crawler:
         brower.quit()
         print('error!!!!!')
     def log_in(self):
+        try:
+            time.sleep(1)
+            self.clic = brower.find_element_by_xpath('//a[@href="javascript:void(0)"]')
+            time.sleep(1)
+            clic.click()
+
 
 brower=webdriver.Safari()
 url='https://weibo.com'
