@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 import time
+
 class crawler:
     def __init__(self,url):#初始化crawler类，实现浏览器的初始化和网页的打开
         try:
