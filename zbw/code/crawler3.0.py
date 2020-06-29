@@ -5,18 +5,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 import time
-class crawler:
-    def __init__(self,url):#初始化crawler类，实现浏览器的初始化和网页的打开
-        self.brower=webdriver.Safari()
-        self.url=url
-        self.brower.get(self.url)
-        self.wait=WebDriverWait(self.brower,10)
-        self.brower.maximize_window()
-        time.sleep(5)
-    def error(self):#错误处理，输出错误信息，并将浏览器关闭
-        brower.quit()
-        print('error!!!!!')
-    def log_in(self):
 
 brower=webdriver.Safari()
 url='https://weibo.com'
