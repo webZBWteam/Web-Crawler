@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 import time
+import pymysql
 class crawler:
     def __init__(self,url):#初始化crawler类，实现浏览器的初始化和网页的打开
         try:
@@ -15,12 +16,15 @@ class crawler:
             self.brower.maximize_window()
             time.sleep(10)
         except:
-            self.error()
+            self.web_error()
     def waite(self,brower):#设置显式等待，防止由于页面未成功夹在所出现对错误
         return WebDriverWait(brower,5)
-    def error(self):#错误处理，输出错误信息，并将浏览器关闭
+    def web_error(self):#错误处理，输出错误信息，并将浏览器关闭
         self.brower.quit()
         print('error!!!!!')
+    def database_error(self):#数据库错误处理
+        self.conn.close()
+        print('database error!!')
     def quit(self):#完成爬虫任务，退出页面
         print('succeed!!!!!')
         self.brower.quit()
@@ -41,7 +45,7 @@ class crawler:
             clic = self.brower.find_element_by_xpath('//a[@node-type="searchSubmit"]')
             clic.send_keys(Keys.ENTER)
         except:
-            self.error()
+            self.web_error()
     def search(self,sear):#搜索关键词
         time.sleep(2)
         try:
@@ -53,7 +57,7 @@ class crawler:
             time.sleep(1)
             clic.send_keys(Keys.ENTER)
         except:
-            self.error()
+            self.web_error()
     def open_comments(self):#打开所有评论
         try:
             time.sleep(3)
@@ -77,14 +81,14 @@ class crawler:
             txts = self.brower.find_elements_by_xpath('//p[@node-type="feed_list_content"]')
             return txts
         except:
-            self.error()
+            self.web_error()
     def find_comments_position(self):#找到所有评论的位置
         time.sleep(1)
         try:
             comments = self.brower.find_elements_by_xpath('//div[@class="card-together"]')
             return comments
         except:
-            self.error()
+            self.web_error()
     def find_comments_detail(self,comment):#找到所有评论的内容
         time.sleep(1)
         try:
@@ -97,7 +101,7 @@ class crawler:
             clic = self.brower.find_element_by_xpath('//a[@class="next"]')
             clic.send_keys(Keys.ENTER)
         except:
-            self.error()
+            self.web_error()
     def names(self,sear):#定义文件名
         name=[]
         for i in range(1,4):
@@ -127,3 +131,13 @@ class crawler:
                         # print(info.text)
                 self.next_page()
         self.quit()
+    def database_link(self):#连接数据库
+        try:
+            self.conn = pymysql.Connect(host='127.0.0.1', port=3306, user='root', passwd='asdf1234', db='experiment1',charset='utf8')
+            self.conn.begin()
+            self.cursor = self.conn.cursor()
+        except:
+            self.database_error()
+
+
+
