@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 import glob
 import time
 import pymysql
+
 class crawler:
     def __init__(self,url):#初始化crawler类，实现浏览器的初始化和网页的打开
         try:
@@ -15,7 +16,7 @@ class crawler:
             self.brower.get(self.url)
             self.wait = self.waite(self.brower)
             self.brower.maximize_window()
-            time.sleep(30)
+            time.sleep(5)
         except:
             self.web_error()
     def waite(self,brower):#设置显式等待，防止由于页面未成功夹在所出现对错误
