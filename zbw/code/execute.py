@@ -5,4 +5,3 @@ brower=crawler('http://weibo.com')
 brower.log_in()
 brower.database_link()
 brower.db_load_user_info()
-

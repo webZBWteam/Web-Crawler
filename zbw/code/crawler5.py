@@ -171,16 +171,16 @@ class crawler:
             self.db_insert_id(names)
     def find_user(self):#搜索用户信息
         try:
-            time.sleep(2)
+            time.sleep(1)
             clic = self.brower.find_element_by_xpath('//a[@title="找人"]')
             clic.send_keys(Keys.ENTER)
-            time.sleep(2)
+            time.sleep(1)
             clic = self.brower.find_element_by_xpath('//a[@title="昵称"]')
             clic.send_keys(Keys.ENTER)
         except:
             self.web_error()
         try:
-            time.sleep(2)
+            time.sleep(1)
             position=self.brower.find_element_by_xpath('//div[@class="card card-user-b s-pg16 s-brt1"]')
             return position
         except:
@@ -204,7 +204,7 @@ class crawler:
                 file.flush()
                 file.writelines(position.text)
                 file.flush()
-                print('-----user_info------')
+                #print('-----user_info------')
                 #print(position.text)
                 file.writelines(self.get_gender(position))
                 file.flush()
