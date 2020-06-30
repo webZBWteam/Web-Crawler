@@ -15,7 +15,7 @@ class crawler:
             self.brower.get(self.url)
             self.wait = self.waite(self.brower)
             self.brower.maximize_window()
-            time.sleep(10)
+            time.sleep(30)
         except:
             self.web_error()
     def waite(self,brower):#设置显式等待，防止由于页面未成功夹在所出现对错误
@@ -171,16 +171,16 @@ class crawler:
             self.db_insert_id(names)
     def find_user(self):#搜索用户信息
         try:
-            time.sleep(2)
+            time.sleep(1)
             clic = self.brower.find_element_by_xpath('//a[@title="找人"]')
             clic.send_keys(Keys.ENTER)
-            time.sleep(2)
+            time.sleep(1)
             clic = self.brower.find_element_by_xpath('//a[@title="昵称"]')
             clic.send_keys(Keys.ENTER)
         except:
             self.web_error()
         try:
-            time.sleep(2)
+            time.sleep(1)
             position=self.brower.find_element_by_xpath('//div[@class="card card-user-b s-pg16 s-brt1"]')
             return position
         except:
@@ -195,16 +195,19 @@ class crawler:
         return names
     def db_load_user_info(self):#向数据库中导入用户信息
         names=self.db_get_user_id()
-        user_info=open('user_info.txt')
+        file=open('user_info.txt','w')
         for name in names:
             self.search(name)
             position=self.find_user()
             if position:
-                user_info.writelines('-----user_info------')
-                user_info.writelines(position.text)
+                file.writelines('-----user_info------')
+                file.flush()
+                file.writelines(position.text)
+                file.flush()
                 #print('-----user_info------')
                 #print(position.text)
-                user_info.writelines(self.get_gender(position))
+                file.writelines(self.get_gender(position))
+                file.flush()
                 #print(self.get_gender(position))
     def get_gender(self,position):
         try:
