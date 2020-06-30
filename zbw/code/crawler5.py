@@ -15,7 +15,7 @@ class crawler:
             self.brower.get(self.url)
             self.wait = self.waite(self.brower)
             self.brower.maximize_window()
-            time.sleep(10)
+            time.sleep(30)
         except:
             self.web_error()
     def waite(self,brower):#设置显式等待，防止由于页面未成功夹在所出现对错误
