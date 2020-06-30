@@ -5,7 +5,15 @@ import imageio
 from scipy.misc import imread
 from snownlp import SnowNLP
 import numpy as np
+import glob
 plt.rc('figure', figsize=(15, 15))
+
+
+
+def get_txt_name():
+    txts = glob.glob('/Users/zhubowen/Desktop/Web-Crawler/zbw/dataset/*3.txt')#这里写路径，*3得到所有只有评论的txt文件
+    return txts
+
 
 #读取微博正文内容
 def read_weibo():
