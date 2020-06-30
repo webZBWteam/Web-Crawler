@@ -195,16 +195,19 @@ class crawler:
         return names
     def db_load_user_info(self):#向数据库中导入用户信息
         names=self.db_get_user_id()
-        user_info=open('user_info.txt')
+        file=open('user_info.txt','w')
         for name in names:
             self.search(name)
             position=self.find_user()
             if position:
-                user_info.writelines('-----user_info------')
-                user_info.writelines(position.text)
-                #print('-----user_info------')
+                file.writelines('-----user_info------')
+                file.flush()
+                file.writelines(position.text)
+                file.flush()
+                print('-----user_info------')
                 #print(position.text)
-                user_info.writelines(self.get_gender(position))
+                file.writelines(self.get_gender(position))
+                file.flush()
                 #print(self.get_gender(position))
     def get_gender(self,position):
         try:
