@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+import glob
 import time
 import pymysql
 class crawler:
@@ -130,14 +131,111 @@ class crawler:
                         file3.writelines(info.text)
                         # print(info.text)
                 self.next_page()
-        self.quit()
     def database_link(self):#连接数据库
         try:
-            self.conn = pymysql.Connect(host='127.0.0.1', port=3306, user='root', passwd='asdf1234', db='experiment1',charset='utf8')
+            self.conn = pymysql.Connect(host='127.0.0.1', port=3306, user='root', passwd='asdf1234', db='crawler',charset='utf8')
             self.conn.begin()
             self.cursor = self.conn.cursor()
         except:
             self.database_error()
+    def load_txt(self):#导入txt文件名
+        try:
+            txts = glob.glob('/Users/zhubowen/Desktop/Web-Crawler/zbw/dataset/*3.txt')
+            return txts
+        except:
+            print('no such txt found!!!!!')
+    def read_txt(self,txt):#读取txt文件中的内容
+        txt1 = open(txt)
+        txt2 = open(txt)
+        txt1.readline()
+        names=[]
+        while True:
+            content1=txt1.readline()
+            content2=txt2.readline()
+            if content1 == '                        ：\n':
+                names.append(content2.lstrip()[0:-2])
+            elif len(content1) == 0:
+                return names
+    def db_insert_id(self,names):#将用户名称导入数据库中
+        for name in names:
+            try:
+                self.cursor.execute('''INSERT INTO user_info VALUES("''' + name + '''")''')
+                # print('''INSERT INTO user_info VALUES("'''+name+'''")''')
+                self.conn.commit()
+            except:
+                print('already exist!!!!!')
+    def db_load_user_id(self):#将用户id数据导入数据库中
+        txts=self.load_txt()
+        for txt in txts:
+            names=self.read_txt(txt)
+            self.db_insert_id(names)
+    def find_user(self):#搜索用户信息
+        try:
+            clic = self.brower.find_element_by_xpath('//a[@title="找人"]')
+            time.sleep(1)
+            clic.send_keys(Keys.ENTER)
+            clic = self.brower.find_element_by_xpath('//a[@title="昵称"]')
+            time.sleep(1)
+            clic.send_keys(Keys.ENTER)
+        except:
+            self.web_error()
+        try:
+            position=self.brower.find_element_by_xpath('//div[@class="card card-user-b s-pg16 s-brt1"]')
+            return position
+        except:
+            return False
+    def find_gender(self):#获取用户性别数据
+        try:
+            self.brower.find_element_by_xpath('//i[@title="找人"]')
+
+
+
+
+
+
+
+    def db_load_user_info(self):#向数据库中导入用户信息
+        
+        if
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+a=crawler('http://weibo.com')
+a.database_link()
+a.cursor.execute('SELECT * FROM user_info')
+res=a.cursor.fetchall()
+for i in res:
+    print(list(i)[0])
+
+
+
+
+
+
+
+
+
+
+
 
 
 
