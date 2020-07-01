@@ -5,10 +5,11 @@ import imageio
 from snownlp import SnowNLP
 import numpy as np
 import glob
+import random
 plt.rc('figure', figsize=(15, 15))
 class data:
     def __init__(self):
-        self.name=glob.glob('/Users/zhubowen/Desktop/Web-Crawler/zbw/code/*3.txt')[0]
+        self.name=glob.glob('/Users/zhubowen/Desktop/Web-Crawler/online_word_cloud/*3.txt')[0]
         self.all_text=''
 
     #读取微博正文内容
@@ -98,8 +99,10 @@ class data:
         print('succeed2')
         
         #利用worldcloud制造词云
-        font='/Users/zhubowen/Library/Fonts/HYSuZeLiXingKaiTruingW.ttf'
-        color_mask = imageio.imread("/Users/zhubowen/Desktop/Web-Crawler/online_word_cloud/fecba66e777d9ff081da543883d77dd6.jpg")
+        fonts=glob.glob('/Users/zhubowen/Desktop/Web-Crawler/online_word_cloud/Fonts/*.ttf')
+        font=random.choice(fonts)
+        color_masks=glob.glob('/Users/zhubowen/Desktop/Web-Crawler/online_word_cloud/pict/*.')
+        color_mask = random.choice(color_masks)
         cloud = wc.WordCloud( font_path=font,#设置字体  
                               background_color="white", #背景颜色  
                               max_words=200,# 词云显示的最大词数  
