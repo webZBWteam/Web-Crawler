@@ -15,7 +15,7 @@ class crawler:
             self.brower.get(self.url)
             self.wait = self.waite(self.brower)
             self.brower.maximize_window()
-            time.sleep(30)
+            time.sleep(10)
         except:
             self.web_error()
     def waite(self,brower):#设置显式等待，防止由于页面未成功夹在所出现对错误
@@ -153,14 +153,14 @@ class crawler:
             content1=txt1.readline()
             content2=txt2.readline()
             if content1 == '                        ：\n':
-                names.append(content2.lstrip()[0:-2])
+                names.append(content2.lstrip()[0:-1])
             elif len(content1) == 0:
                 return names
     def db_insert_id(self,names):#将用户名称插入数据库中
         for name in names:
             try:
+                #print('''INSERT INTO user_info VALUES("''' + name + '''")''')
                 self.cursor.execute('''INSERT INTO user_info VALUES("''' + name + '''")''')
-                # print('''INSERT INTO user_info VALUES("'''+name+'''")''')
                 self.conn.commit()
             except:
                 print('already exist!!!!!')
@@ -181,7 +181,7 @@ class crawler:
             self.web_error()
         try:
             time.sleep(1)
-            position=self.brower.find_element_by_xpath('//div[@class="card card-user-b s-pg16 s-brt1"]')
+            position=self.brower.find_element_by_xpath('//a[@class="name"]')
             return position
         except:
             return False
@@ -200,22 +200,19 @@ class crawler:
             self.search(name)
             position=self.find_user()
             if position:
-                file.writelines('-----user_info------')
+                #file.writelines('-----user_info------')
                 file.flush()
                 file.writelines(position.text)
                 file.flush()
                 #print('-----user_info------')
                 #print(position.text)
-                file.writelines(self.get_gender(position))
+                #file.writelines(self.get_gender(position))
                 file.flush()
-                #print(self.get_gender(position))
-    def get_gender(self,position):
+                #print(self.get_gender(position))'''
+    '''def get_gender(self,position):
         try:
-            position.find_element_by_xpath('//i[@class="icon-sex icon-sex-female"]')
+            print(position.find_element_by_id('i').attribute())
             return 'FEMALE'
         except:
-            try:
-                position.find_element_by_xpath('//i[@class="icon-sex icon-sex-male"]')
-                return 'MALE'
-            except:
-                return 'SECRET'
+            #print('success!!')
+            return 'MALE'''''
