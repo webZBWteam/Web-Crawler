@@ -11,7 +11,7 @@ plt.rc('figure', figsize=(15, 15))
 
 class data:
     def __init__(self,name):
-        self.name='/Users/zhubowen/Desktop/Web-Crawler/online_word_cloud/'+name+'1.txt'
+        self.name=name+'1.txt'
         self.all_text = ''
 
     # 读取微博+评论文档，避开无关内容

@@ -1,61 +1,44 @@
-#!/usr/bin/env python
-# -*- coding:utf-8 -*-
-import tkinter
-import crawler5
-import cloud
-from tkinter.filedialog import askdirectory
-win = tkinter.Tk()
-win.title("weibo_word_cloud")
-win.geometry("400x400+200+50")
-
-key_cord=''
-
-
-
-def selectPath():
-    path_ = askdirectory()
-    path.set(path_)
-
-
-
-def showinfo():
-    # 获取输入的内容
-    key_cord=entry.get()
-    print(key_cord)
-
-    root = tkinter.Tk()
-    path = tkinter.StringVar()
-    tkinter.Label(root, text="目标路径:").grid(row=0, column=0)
-    tkinter.Entry(root, textvariable=path).grid(row=0, column=1)
-    tkinter.Button(root, text="路径选择", command=selectPath).grid(row=0, column=2)
-
-    root.mainloop()
-
-
-
-
-entry = tkinter.Entry(win)
-entry.pack()
-
-button = tkinter.Button(win, text="确定", command=showinfo)
-button.pack()
-
-win.mainloop()
-
-
-
-
-
-'''brower=crawler5.crawler('http://weibo.com')
-brower.log_in()
-#nums=eval(input('输入爬取的页数：'))
-sears=key_cord+'/'
-sears=sears.split('/')
-#sears=input('输入爬虫关键词：').split('/')
-brower.get_outcomes(1,sears)
-#brower.get_outcomes(nums,sears)
-cloud=cloud.data()
-cloud.read_pinglun()
-cloud.mood()
-cloud.ciyun()
-brower.brower.quit()'''
+from tkinter import *
+import tkinter.messagebox
+from cloud import data
+from online_word_cloud import online
+name=''
+class Application(Frame):
+    def __init__(self, master=None):
+        Frame.__init__(self, master)
+        self.pack()     
+        self.createWidgets()
+        
+    def createWidgets(self):
+        self.nameInput = Entry(self)
+        self.nameInput.pack()
+        self.alertButton = Button(self, text='搜索', command=self.hello)
+        self.alertButton.pack()
+ 
+    def hello(self):
+        name = self.nameInput.get() or '乘风破浪的姐姐'
+        online(name)
+        '''file_name='乘风破浪的姐姐'+name
+        a=data(file_name)
+        if '1' in file_name:
+            a.read_all()
+        elif '2' in file_name:
+            a.read_weibo()
+        elif '3' in file_name:
+            a.read_pinglun()
+        a.ciyun()'''
+app = Application()
+#插入图片和背景的相关代码，必须与mainloop()放在相同的位置，否则不能显示，原因不详
+photo = PhotoImage(file="bdb615b791926448aaa9b7ccd5c8329f.gif")
+app.theLabel = Label(app,
+                     text="微博实时词云",#内容
+                     justify=LEFT,#对齐方式
+                     image=photo,#加入图片
+                     compound = CENTER,#关键:设置为背景图片
+                     font=("华文行楷",20),#字体和字号
+                     fg = "red")#前景色
+app.theLabel.pack()
+# 设置窗口标题:
+app.master.title('词云展示')
+# 主消息循环:
+app.mainloop()

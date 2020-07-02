@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 import glob
 import time
 import pymysql
+import confirm
 
 class crawler:
     def __init__(self,url):#初始化crawler类，实现浏览器的初始化和网页的打开
@@ -40,9 +41,10 @@ class crawler:
             clic = self.brower.find_element_by_xpath('//a[@action-data="tabname=qrcode"]')
             clic.click()
             time.sleep(5)
-            confirm=input('enter "yes" to confirm you have scan the code')
+            confirm.confi()
+            '''confirm=input('enter "yes" to confirm you have scan the code')
             if confirm=='yes':
-                self.brower.refresh()
+                self.brower.refresh()'''
             time.sleep(2)
             clic = self.brower.find_element_by_xpath('//a[@node-type="searchSubmit"]')
             clic.send_keys(Keys.ENTER)
@@ -109,114 +111,25 @@ class crawler:
         for i in range(1,4):
             name.append(sear+str(i)+'.txt')
         return name
-    def get_outcomes(self,num,sears):#获取微博数据和评论数据，保存为txt格式，其中num参数表示获取数据的页数
-        for sear in sears:
-            self.search(sear)
-            name=self.names(sear)
-            file1 = open(name[0], 'w')  # 微博和评论
-            file2 = open(name[1], 'w')  # 仅微博
-            file3 = open(name[2], 'w')  # 仅评论
-            for i in range(num):
-                self.open_weibo()
-                self.open_comments()
-                txts = self.find_weibo()
-                comments = self.find_comments_position()
-                for txt, comment in zip(txts, comments):
-                    file1.writelines('-----微博正文-----')
-                    file1.writelines(txt.text)
-                    file2.writelines(txt.text)
-                    # print(txt.text)
-                    infos = self.find_comments_detail(comment)
-                    for info in infos:
-                        file1.writelines(info.text)
-                        file3.writelines(info.text)
-                        # print(info.text)
-                self.next_page()
-    def database_link(self):#连接数据库
-        try:
-            self.conn = pymysql.Connect(host='127.0.0.1', port=3306, user='root', passwd='asdf1234', db='crawler',charset='utf8')
-            self.conn.begin()
-            self.cursor = self.conn.cursor()
-        except:
-            self.database_error()
-    def load_txt(self):#导入txt文件名
-        try:
-            txts = glob.glob('/Users/zhubowen/Desktop/Web-Crawler/zbw/dataset/*3.txt')
-            return txts
-        except:
-            print('no such txt found!!!!!')
-    def read_txt(self,txt):#读取txt文件中的内容
-        txt1 = open(txt)
-        txt2 = open(txt)
-        txt1.readline()
-        names=[]
-        while True:
-            content1=txt1.readline()
-            content2=txt2.readline()
-            if content1 == '                        ：\n':
-                names.append(content2.lstrip()[0:-2])
-            elif len(content1) == 0:
-                return names
-    def db_insert_id(self,names):#将用户名称插入数据库中
-        for name in names:
-            try:
-                self.cursor.execute('''INSERT INTO user_info VALUES("''' + name + '''")''')
-                # print('''INSERT INTO user_info VALUES("'''+name+'''")''')
-                self.conn.commit()
-            except:
-                print('already exist!!!!!')
-    def db_load_user_id(self):#将用户id数据导入数据库中
-        txts=self.load_txt()
-        for txt in txts:
-            names=self.read_txt(txt)
-            self.db_insert_id(names)
-    def find_user(self):#搜索用户信息
-        try:
-            time.sleep(1)
-            clic = self.brower.find_element_by_xpath('//a[@title="找人"]')
-            clic.send_keys(Keys.ENTER)
-            time.sleep(1)
-            clic = self.brower.find_element_by_xpath('//a[@title="昵称"]')
-            clic.send_keys(Keys.ENTER)
-        except:
-            self.web_error()
-        try:
-            time.sleep(1)
-            position=self.brower.find_element_by_xpath('//div[@class="card card-user-b s-pg16 s-brt1"]')
-            return position
-        except:
-            return False
-    def db_get_user_id(self):  # 从数据库中获取用户信息
-        self.cursor.execute('SELECT * FROM user_info')
-        res = self.cursor.fetchall()
-        names=[]
-        for name in res:
-            names.append(list(name)[0])
-            #print(list(i)[0])
-        return names
-    def db_load_user_info(self):#向数据库中导入用户信息
-        names=self.db_get_user_id()
-        file=open('user_info.txt','w')
-        for name in names:
-            self.search(name)
-            position=self.find_user()
-            if position:
-                file.writelines('-----user_info------')
-                file.flush()
-                file.writelines(position.text)
-                file.flush()
-                #print('-----user_info------')
-                #print(position.text)
-                file.writelines(self.get_gender(position))
-                file.flush()
-                #print(self.get_gender(position))
-    def get_gender(self,position):#获取用户性别信息
-        try:
-            position.find_element_by_xpath('//i[@class="icon-sex icon-sex-female"]')
-            return 'FEMALE'
-        except:
-            try:
-                position.find_element_by_xpath('//i[@class="icon-sex icon-sex-male"]')
-                return 'MALE'
-            except:
-                return 'SECRET'
+    def get_outcomes(self,num,sear):#获取微博数据和评论数据，保存为txt格式，其中num参数表示获取数据的页数
+        self.search(sear)
+        name = self.names(sear)
+        file1 = open(name[0], 'w')  # 微博和评论
+        file2 = open(name[1], 'w')  # 仅微博
+        file3 = open(name[2], 'w')  # 仅评论
+        for i in range(num):
+            self.open_weibo()
+            self.open_comments()
+            txts = self.find_weibo()
+            comments = self.find_comments_position()
+            for txt, comment in zip(txts, comments):
+                file1.writelines('-----微博正文-----')
+                file1.writelines(txt.text)
+                file2.writelines(txt.text)
+                # print(txt.text)
+                infos = self.find_comments_detail(comment)
+                for info in infos:
+                    file1.writelines(info.text)
+                    file3.writelines(info.text)
+                    # print(info.text)
+            self.next_page()
