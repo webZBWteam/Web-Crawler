@@ -1,9 +1,9 @@
 from tkinter import *
 import tkinter.messagebox
 import PIL
+from online_word_cloud import online
 from PIL import Image, ImageTk
 name=''
-loc=''
 class Application(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
@@ -11,16 +11,16 @@ class Application(Frame):
         self.createWidgets()
         
     def createWidgets(self):
+        l1 = Label(self, text='输入搜索关键词')
+        l1.pack()
         self.nameInput = Entry(self)
         self.nameInput.pack()
-        self.loc=Entry(self)
-        self.loc.pack()
         self.alertButton = Button(self, text='搜索', command=self.hello)
         self.alertButton.pack()
  
     def hello(self):
         name = self.nameInput.get() or '乘风破浪的姐姐'
-        loc=self.loc.get() or '乘风破浪的姐姐'
+        #loc=self.loc.get() or '乘风破浪的姐姐'
         online(name)
         root = Toplevel()
         root.title("词云展示")
