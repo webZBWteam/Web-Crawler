@@ -1,8 +1,9 @@
 from tkinter import *
 import tkinter.messagebox
-from cloud import data
-from online_word_cloud import online
+import PIL
+from PIL import Image, ImageTk
 name=''
+loc=''
 class Application(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
@@ -12,12 +13,25 @@ class Application(Frame):
     def createWidgets(self):
         self.nameInput = Entry(self)
         self.nameInput.pack()
+        self.loc=Entry(self)
+        self.loc.pack()
         self.alertButton = Button(self, text='搜索', command=self.hello)
         self.alertButton.pack()
  
     def hello(self):
         name = self.nameInput.get() or '乘风破浪的姐姐'
+        loc=self.loc.get() or '乘风破浪的姐姐'
         online(name)
+        root = Toplevel()
+        root.title("词云展示")
+        di_zhi = name + '.jpg'
+        img_open = Image.open(di_zhi)
+        size=900,900
+        img_open.thumbnail(size)
+        img_jpg = ImageTk.PhotoImage(img_open)
+        label_img = Label(root, image=img_jpg)
+        label_img.pack()
+        root.mainloop()
         '''file_name='乘风破浪的姐姐'+name
         a=data(file_name)
         if '1' in file_name:

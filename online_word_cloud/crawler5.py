@@ -7,7 +7,7 @@ from selenium.webdriver.common.keys import Keys
 import glob
 import time
 import pymysql
-import confirm
+#import confirm
 
 class crawler:
     def __init__(self,url):#初始化crawler类，实现浏览器的初始化和网页的打开
@@ -40,12 +40,12 @@ class crawler:
             time.sleep(1)
             clic = self.brower.find_element_by_xpath('//a[@action-data="tabname=qrcode"]')
             clic.click()
-            time.sleep(5)
-            confirm.confi()
-            '''confirm=input('enter "yes" to confirm you have scan the code')
-            if confirm=='yes':
-                self.brower.refresh()'''
-            time.sleep(2)
+            time.sleep(30)
+            #confirm.confi()
+            #confirm=input('enter "yes" to confirm you have scan the code')
+            #if confirm=='yes':
+                #self.brower.refresh()
+            #time.sleep(2)
             clic = self.brower.find_element_by_xpath('//a[@node-type="searchSubmit"]')
             clic.send_keys(Keys.ENTER)
         except:

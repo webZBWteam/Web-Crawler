@@ -12,6 +12,7 @@ plt.rc('figure', figsize=(15, 15))
 class data:
     def __init__(self,name):
         self.name=name+'1.txt'
+        self.photo=name
         self.all_text = ''
 
     # 读取微博+评论文档，避开无关内容
@@ -94,7 +95,7 @@ class data:
         mywc = cloud.generate(all_word)
         plt.imshow(mywc)
         plt.axis("off")
-        # di_zhi='C:/Users/haome/Desktop/jieguo/词云'+self.dl_name+'.jpg'
-        # plt.savefig(di_zhi)
+        di_zhi=self.photo+'.jpg'
+        plt.savefig(di_zhi)
         plt.show()
         print("succeed")
