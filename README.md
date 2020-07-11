@@ -1,4 +1,31 @@
 # '乘风破浪的姐姐'项目介绍
+![image-process](https://img.shields.io/badge/python-3.7-green.svg)
+![image-process](https://img.shields.io/badge/pycharm-2020.1.2-orange)
+![image-process](https://img.shields.io/badge/PIL-1.1.6-red)
+![image-process](https://img.shields.io/badge/tkinter-1.1.0-yellow)
+![image-process](https://img.shields.io/badge/wordcloud-1.7.0-green)
+![image-process](https://img.shields.io/badge/selenium-3.141.0-orange)
+
+![image-process](https://img.shields.io/badge/mysql-8.0.19-lightgrey)
+![image-process](https://img.shields.io/badge/Dreaweaver-20.0-blue)
+![image-process](https://img.shields.io/badge/Echarts-3.0-orange)
+![image-process](https://img.shields.io/badge/html-5-red)
+
+![image-process](https://img.shields.io/badge/Bootstrap-%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80-yellow)
+![image-process](https://img.shields.io/badge/Content--Type-%E7%BD%91%E9%A1%B5%E6%B8%B2%E6%9F%93-brightgreen)
+![image-process](https://img.shields.io/badge/keywords-%E6%A0%87%E7%AD%BE-blue)
+![image-process](https://img.shields.io/badge/masonry-%E7%80%91%E5%B8%83%E5%9E%8B%E5%9B%BE%E7%89%87%E5%B8%83%E5%B1%80-orange)
+![image-process](https://img.shields.io/badge/fadeInUp-%E5%8A%A8%E6%80%81%E5%B8%83%E5%B1%80-green)
+![image-process](https://img.shields.io/badge/element-%E5%A4%9A%E9%87%8D%E5%B8%83%E5%B1%80-lightgrey)
+![image-process](https://img.shields.io/badge/marquee-%E5%9B%BE%E7%89%87%E6%94%BE%E7%BD%AE%E5%A4%9A%E6%A0%B7%E5%8C%96-red)
+![image-process](https://img.shields.io/badge/%E8%87%AA%E5%AE%9A%E4%B9%89-p%E3%80%81img%E3%80%81a%E6%A0%87%E7%AD%BE-lightgrey)
+
+![image-process](https://img.shields.io/badge/bootstrap.min-css-red)
+![image-process](https://img.shields.io/badge/jQuery.lightninBox-css-yellow)
+![image-process](https://img.shields.io/badge/style--core-css-blue)
+![image-process](https://img.shields.io/badge/echarts.min-js-red)
+![image-process](https://img.shields.io/badge/jquery.isotope.min-js-green)
+![image-process](https://img.shields.io/badge/jquery-js-brightgreen)
 
 ### 1. 项目概要
 
@@ -141,3 +168,7 @@ crawler5的crawler类。
 4.	read_all(self): 读取微博+评论文档，避开无关内容
 5.	mood(self): 对每条内容进行情感分析，最终生成图片并保存到本机
 6.	ciyun(self): 词云的生成与数据的处理，最终生成柱状图并保存到本机
+
+------
+
+谢谢老师和助教哥哥姐姐的悉心指导和技术支持!
