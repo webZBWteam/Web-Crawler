@@ -73,3 +73,66 @@
 8.注重用户体验，给出remove功能，及时删除使用过的数据，不占用系统过多的内存
 
 9.网页设计美观大方，数据呈现简明有效
+
+### 7. API接口介绍
+
+**一、爬虫框架**
+爬虫框架有多个对外接口。如果您希望获取微博数据，欢迎将不同方法有效组合，以获得最佳效果！
+
+**A.说明对象**
+crawler5的crawler类。
+
+**B.类变量**
+> * self.brower: 初始化浏览器，支持Safari。
+> * self.url:获取url地址，默认参数为'http://weibo.com'。
+> * self.wait: 设定显示等待机制，防止因网页为加在完成而出现错误。
+> * self.conn: 接受两个字符串参数password和db。
+> * self.cursor: 数据库游标。
+
+**C.类方法**
+1.	__ init __(self,url='http://weibo.com')初始化爬虫对象。其中url为目标网站链接，类型为字符串，默认值为'http://weibo.com'。
+2.	waite(self,brower) 设置显式等待，防止由于页面未成功夹在所出现对错误。其中brower为webdriver对象。
+3.	web_error(self) 爬虫错误处理。
+4.	database_error(self)数据库错误处理。
+5.	quit(self)退出浏览器。
+6.	log_in(self)登录微博账号，这里需要用户扫描二维码，并且根据提示确认扫描成功。
+7.	search(self,sear) 搜索关键词，其中sear为搜索关键词。类型为字符串。
+8.	open_comments(self) 打开所有评论
+9.	open_weibo(self) 打开所有微博（有些微博存在阅读全文链接，需要将其打开才能获取所有的数据）
+10.	find_weibo(self) 找到所有微博的位置，返回存储代表微博位置的selenium迭代对象
+11.	find_comments_position(self) 找到所有评论的位置，返回存储代表评论位置的selenium迭代对象
+12.	find_comments_detail(self,comment)找到所有评论的内容，输入的参数是代表评论位置的一个selenium对象，返回存储代表评论位置的selenium迭代对象
+13.	next_page(self)实现翻页功能
+14.	names(self,sear)定义文件名，输入的参数是一个字符串，具体的内容为用户的搜索关键词，返回存有文件名的列表
+15.	get_outcomes(self,num,sears)获取微博数据和评论数据，保存为txt格式，其中num参数表示获取数据的页数，sears为列表类型，其中每一个元素为用户输入的搜索关键词
+16.	database_link(self,password,db)连接数据库，输入的两个参数password和db分别是密码和数据库名称，为字符串类型
+17.	load_txt(self)获取txt文件名，返回保存着所有txt文件名的一个列表
+18.	read_txt(self,txt)读取txt文件中的内容，并将用户名提取出来
+19.	db_insert_id(self,names)将用户名称插入数据库中，输入的参数是保存了用户名的列表
+20.	db_load_user_id(self)将用户id数据导入数据库中
+21.	find_user(self)搜索用户个人信息，返回用户信息的位置
+22.	db_get_user_id(self)从数据库中获取用户信息，返回存有所有用户信息的列表
+23.	db_load_user_info(self)向数据库中导入用户信息
+24.	read_txt_comments(ttxt,comments, file)读取txt文件中的内容
+25.	get_fcomments(self)得到规定格式的txt文件，针对评论
+26.	remove(self,format)获取特定格式的文件名，其中format为文件的类型，是一个字符串类型的变量。
+27.	delete(self,forms=['txt'])删除多余的文件，其中format为需要删除文件的类型，是一个列表类型的变量（可能有多个）,默认值为['txt']。
+
+**二、获得词云和情感分析框架**
+词云和情感分析框架含有对外接口，如果您希望根据文本内容生成词云或进行情感分，可以进行连接，以获得结果。
+
+**A.说明对象**
+ Cloud中的cloud类
+ 
+**B.类变量**
+> * self.dl_name：获取文件名字
+> * self.name：获取文件地址
+> * self.all_text：读取文件内容
+
+**C.类方法**
+__ init __(self,name):初始化对象，其中name为文件名字，类型是字符串
+read_weibo(self): 读取微博正文内容
+read_pinglun(self): 读取微博评论内容，避开ID
+read_all(self): 读取微博+评论文档，避开无关内容
+mood(self): 对每条内容进行情感分析，最终生成图片并保存到本机
+ciyun(self): 词云的生成与数据的处理，最终生成柱状图并保存到本机
