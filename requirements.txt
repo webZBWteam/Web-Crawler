@@ -1,0 +1,24 @@
+import csv
+import glob
+import imageio
+import jieba
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+from PIL import Image, ImageTk
+import pymysql
+import random
+import requests
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from snownlp import SnowNLP
+import sys
+import time
+from tkinter import *
+from tkinter.filedialog import askdirectory
+import tkinter.messagebox
+import wordcloud as wc
