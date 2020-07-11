@@ -90,7 +90,8 @@ crawler5的crawler类。
 > * self.cursor: 数据库游标。
 
 **C.类方法**
-1.	__ init __(self,url='http://weibo.com')初始化爬虫对象。其中url为目标网站链接，类型为字符串，默认值为'http://weibo.com'。
+1.	__ init __(self,url='http://weibo.com') 
+初始化爬虫对象。其中url为目标网站链接，类型为字符串，默认值为 'http://weibo.com'。
 2.	waite(self,brower) 设置显式等待，防止由于页面未成功夹在所出现对错误。其中brower为webdriver对象。
 3.	web_error(self) 爬虫错误处理。
 4.	database_error(self)数据库错误处理。
@@ -130,9 +131,9 @@ crawler5的crawler类。
 > * self.all_text：读取文件内容
 
 **C.类方法**
-__ init __(self,name):初始化对象，其中name为文件名字，类型是字符串
-read_weibo(self): 读取微博正文内容
-read_pinglun(self): 读取微博评论内容，避开ID
-read_all(self): 读取微博+评论文档，避开无关内容
-mood(self): 对每条内容进行情感分析，最终生成图片并保存到本机
-ciyun(self): 词云的生成与数据的处理，最终生成柱状图并保存到本机
+1.	__ init __(self,name):初始化对象，其中name为文件名字，类型是字符串
+2.	read_weibo(self): 读取微博正文内容
+3.	read_pinglun(self): 读取微博评论内容，避开ID
+4.	read_all(self): 读取微博+评论文档，避开无关内容
+5.	mood(self): 对每条内容进行情感分析，最终生成图片并保存到本机
+6.	ciyun(self): 词云的生成与数据的处理，最终生成柱状图并保存到本机
